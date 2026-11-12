@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aloud</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#say">Skip to the command box</a>
+<header>
+  <h1>Aloud</h1>
+  <p id="status" role="status" aria-live="polite">Ready. Hold Space to talk, or type below.</p>
+</header>
+
+<main>
+  <section aria-labelledby="talk-h">
+    <h2 id="talk-h" class="visually-hidden">Talk</h2>
+    <button id="talk" type="button" aria-pressed="false" aria-describedby="talk-hint">
+      <span class="dot" aria-hidden="true"></span>
+      <span id="talk-label">Hold to talk</span>
+    </button>
+    <p id="talk-hint" class="hint">Hold Space anywhere outside the text box, or hold this button. Let go to send.</p>
+
+    <form id="form" autocomplete="off">
+      <label for="say">Or type a command</label>
+      <div class="row">
+        <input id="say" name="say" type="text" placeholder="What are the headings?" aria-describedby="say-hint">
+        <button type="submit">Send</button>
+      </div>
+      <p id="say-hint" class="hint">Instant: "where am I", "headings", "links", "buttons", "read the form". Anything else goes to the agent.</p>
+    </form>
+
+    <div id="confirm" class="confirm" hidden>
+      <p id="confirm-text"></p>
+      <div class="row">
+        <button type="button" id="yes">Yes, do it</button>
+        <button type="button" id="no">No, cancel</button>
+      </div>
+    </div>
+    <div id="alert" role="alert" class="alert" hidden></div>
+  </section>
+
+  <section aria-labelledby="log-h">
+    <h2 id="log-h">Conversation</h2>
+    <!-- role=log is not allowed on <ol>, so the live region wraps the list. -->
+    <div role="log" aria-live="polite" aria-relevant="additions" aria-labelledby="log-h"><ol id="log"></ol></div>
+  </section>
+</main>
+
+<aside aria-labelledby="set-h">
+  <h2 id="set-h">Settings</h2>
+  <label class="check"><input type="checkbox" id="speak" checked> Speak replies <span class="hint">(turn off if your own screen reader reads the conversation)</span></label>
+  <label class="check"><input type="checkbox" id="steps" checked> Announce steps while the agent works</label>
+  <label class="check"><input type="checkbox" id="sounds" checked> Sounds for listening, working, blocked</label>
+  <label for="rate">Speech rate <output id="rate-out" for="rate">1.0</output></label>
+  <input type="range" id="rate" min="0.6" max="2.4" step="0.1" value="1">
+  <label for="lang">Language</label>
+  <select id="lang">
+    <option value="en-US">English</option>
+    <option value="fr-CA">Français</option>
+  </select>
+  <h3>Keys</h3>
+  <dl class="keys">
+    <dt><kbd>Space</kbd> held</dt><dd>Talk</dd>
+    <dt><kbd>Esc</kbd></dt><dd>Stop speaking or listening</dd>
+    <dt><kbd>R</kbd></dt><dd>Repeat the last reply</dd>
+    <dt><kbd>/</kbd></dt><dd>Jump to the text box</dd>
+  </dl>
+</aside>
+<script src="app.js"></script>
+</body>
+</html>
